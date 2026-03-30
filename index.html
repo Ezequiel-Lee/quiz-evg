@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <meta property="og:title" content="Quiz Bíblico" />
+        <meta property="og:description" content="Quiz de perguntas e respostas sobre a palavra de Deus" />
+        <meta property="og:image" content="https://ezequiel-lee.github.io/quiz-evg/assets/img/menu.png" />
+        <meta property="og:url" content="https://ezequiel-lee.github.io/quiz-evg/" />
+        <meta property="og:type" content="website" />
+
+        <title>Quiz Game</title>
+
+        <link rel="manifest" href="./assets/manifest.json" />
+        <meta name="theme-color" content="#2e1065" />
+
+        <link rel="shortcut icon" href="./assets/favicon/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="./assets/css/style.css" />
+    </head>
+    <body>
+        <div id="toast-message" class="toast"></div>
+
+        <div class="container">
+
+            <div class="screen active" id="start-screen">
+                <div class="header">
+                    <div class="logo">Quiz Bíblico</div>
+                    <button id="ranking-btn">🏆 Ranking</button>
+                </div>
+                <h1>Quiz</h1>
+                <p>Vamos testar o quanto você conhece da Palavra de Deus?</p>
+                <div id="rules-card" class="rules-card">
+
+                </div>
+                <div class="difficulty">
+                    <button class="diff-btn active" data-diff="easy">Fácil</button>
+                    <button class="diff-btn" data-diff="medium">Médio</button>
+                    <button class="diff-btn" data-diff="hard">Difícil</button>
+                </div>
+                <button id="start-btn">Começar</button>
+            </div>
+
+            <div class="screen" id="quiz-screen">
+                <div class="quiz-header">
+                    <h2 id="question-text">Respostas aqui.</h2>
+                    <div class="quiz-info">
+                        <p>
+                            Pergunta: <span id="current-question">1</span> de
+                            <span id="total-questions">7</span>
+                        </p>
+                        <p>Acertos: <span id="score">0</span></p>
+                    </div>
+                </div>
+                <div class="answers-container" id="answers-container">
+
+                </div>
+                <div class="timer-circle">
+                    <svg width="55" height="55">
+                        <circle
+                            cx="27.5"
+                            cy="27.5"
+                            r="24"
+                            stroke="var(--border)"
+                            stroke-width="5"
+                            fill="none"
+                        />
+                        <circle
+                            id="timer-ring"
+                            cx="27.5"
+                            cy="27.5"
+                            r="24"
+                            stroke="var(--wrong)"
+                            stroke-width="5"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-dasharray="150.8"
+                            stroke-dashoffset="0"
+                        />
+                    </svg>
+                    <div class="timer-text" id="timer-text">10</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" id="progress">
+
+                    </div>
+                </div>
+                <div class="btn-cancel">
+                    <button id="cancel-btn">Voltar</button>
+                </div>
+            </div>
+
+            <div class="screen" id="result-screen">
+                <h2 class="pb-10">Resultado!</h2>
+                <div class="result-info">
+                    <p id="final-score"></p>
+                    <div id="result-message">
+
+                    </div>
+                </div>
+                <div class="btns">
+                    <button id="cancel-btn-result">Cancelar</button>
+                    <button id="restart-btn">Recomeçar</button>
+                </div>
+            </div>
+
+            <div id="lock-hard-modal" class="modal">
+                <div class="modal-content">
+                    <h3 class="pb-10">Modo Difícil Bloqueado 🔒</h3>
+
+                    <p class="opacity pb-10">
+                        Conclua pelo menos <br>
+                        <strong>70% do nível Médio</strong><br>
+                        para liberar o modo difícil.
+                    </p>
+
+                    <div class="btns">
+                        <button id="cancel-lock-hard">Cancelar</button>
+                        <button id="go-medium">Começar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ranking-modal" class="modal">
+                <div class="modal-content">
+                    <h3>🏆 Últimos Resultados</h3>
+                    <ul id="ranking-list"></ul>
+                    <div class="btns">
+                        <button id="clear-ranking">Limpar</button>
+                        <button id="close-ranking">Fechar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="confirm-clear-modal" class="modal">
+                <div class="modal-content">
+                    <h3 class="pb-10">Deseja remover o Ranking?</h3>
+                    <p class="opacity pb-10">Essa ação não pode ser desfeita.</p>
+                    <div class="btns">
+                        <button id="confirm-clear">Confirmar</button>
+                        <button id="cancel-clear">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="survival-modal" class="modal">
+                <div class="modal-content">
+                    <h2 class="pb-10">Liberado!</h2>
+                    <div class="rules-card">
+                        🔥 Modo Sobrevivência <br><br>
+                        • Perguntas infinitas<br>
+                        • Dificuldade aleatória<br>
+                        • Acaba só quando errar<br>
+                        • Muito mais difícil<br><br>
+                        Quanto você aguenta?
+                    </div>
+                    <div class="btns">
+                        <button id="cancel-survival">Cancelar</button>
+                        <button id="start-survival">Começar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="module" src="./assets/js/script.js"></script>
+        <script>
+            // Ajuda a bloquiar parcialmente o seu código no navegador (para leigos)
+            document.addEventListener('contextmenu', e => e.preventDefault());
+            document.addEventListener('keydown', e => {
+                if (e.key === 'F12' || (e.ctrlKey && e.key === 'u')) {
+                    e.preventDefault();
+                }
+            });
+        </script>
+    </body>
+</html>
