@@ -1,7 +1,7 @@
 {
   "name": "Quiz Bíblico",
   "short_name": "Quiz",
-  "start_url": "./",
+  "start_url": "https://ezequiel-lee.github.io/quiz-evg/",
   "display": "standalone",
   "background_color": "#020617",
   "theme_color": "#2e1065",
